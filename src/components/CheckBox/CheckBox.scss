@@ -1,0 +1,42 @@
+.checkbox-wrapper {
+  display: inline-block;
+}
+
+.checkbox-input {
+  display: none;
+}
+
+.checkbox-label {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+
+  svg {
+    position: relative;
+  }
+  svg path {
+    stroke: transparent !important;
+  }
+}
+
+.checkbox-input:not(:disabled) + .checkbox-label:hover {
+  border: 1px solid rgba(81, 133, 129, 1);
+}
+
+.checkbox-input:checked + .checkbox-label svg path {
+  stroke: #518581 !important;
+}
+
+.checkbox-input:disabled + .checkbox-label {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+}
+
+.checkbox-input:checked:disabled + .checkbox-label svg path {
+  stroke: rgba(0, 0, 0, 0.2) !important;
+}

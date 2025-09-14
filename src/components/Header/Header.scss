@@ -1,0 +1,33 @@
+.header {
+  border-bottom: 2px solid #d9d9d9;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 64px;
+  align-items: center;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-logo-image,
+.header-user-logo {
+  width: 32px;
+  aspect-ratio: 1;
+}
+
+.header-user-logo {
+  border-radius: 50%;
+}
+
+.header-logo-title {
+  font-size: 20px;
+  font-weight: 700;
+}

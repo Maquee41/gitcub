@@ -1,0 +1,33 @@
+.test-class {
+  display: flex;
+  position: relative;
+}
+
+.input {
+  padding: 15px 12px;
+  padding-right: 40px;
+  width: 100%;
+  font-size: 16px;
+  border-radius: 0;
+  border: 1px solid #fff;
+  outline: none;
+  color: #000;
+
+  &::placeholder {
+    color: rgba(175, 173, 181, 1);
+  }
+  &:not(input:disabled):focus {
+    border: 1px solid rgba(81, 133, 129, 1);
+  }
+  &:disabled {
+    background-color: #fff;
+    cursor: not-allowed;
+  }
+}
+
+.input__after-slot {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}

@@ -1,0 +1,45 @@
+.dropdown {
+  width: 200px;
+  font-size: 14px;
+  position: relative;
+
+  &.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  &__input {
+    padding: 8px;
+    cursor: pointer;
+    position: relative;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-icon {
+      color: #afadb5;
+    }
+
+    &:hover {
+      border-color: #999;
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 4px;
+  }
+
+  &__dropdown div {
+    padding: 8px;
+    cursor: pointer;
+  }
+}

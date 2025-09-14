@@ -1,0 +1,29 @@
+$back: rgba(81, 133, 129, 1);
+$back-hover: rgba(134, 170, 167, 1);
+$bacl-disabled: rgba(217, 217, 217, 1);
+$color: #fff;
+
+.btn {
+  background-color: $back;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 15px 19px;
+  font-size: 18px;
+  color: $color;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  span {
+    border-color: $color;
+    border-right-color: transparent;
+  }
+  &:not(&:has(.loader), &:disabled):hover {
+    background-color: $back-hover;
+  }
+  &:disabled {
+    background-color: $bacl-disabled;
+  }
+}

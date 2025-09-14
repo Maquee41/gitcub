@@ -1,0 +1,48 @@
+.text_view_title {
+  font-size: 44px;
+  font-weight: bold;
+  line-height: 48px;
+  width: 300px;
+}
+.text_view_button {
+  font-size: 18px;
+  font-weight: 400;
+}
+.text_view_p-20 {
+  font-size: 20px;
+}
+.text_view_p-18 {
+  font-size: 18px;
+}
+.text_view_p-16 {
+  font-size: 16px;
+}
+.text_view_p-14 {
+  font-size: 14px;
+}
+
+.text_weight_medium {
+  font-weight: 500;
+}
+
+.text_weight_bold {
+  font-weight: 700;
+}
+
+.text_color_primary {
+  color: #000;
+}
+
+.text_color_secondary {
+  color: rgba(175, 175, 175, 1);
+}
+
+.text_color_accent {
+  color: rgba(81, 133, 129, 1);
+}
+
+.text_ellipsis {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}

@@ -1,14 +1,18 @@
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router'
+import { RepoList } from '@/pages/RepoList/RepoList'
+import './index.scss'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <div>GitCub</div>,
+    element: <RepoList />,
   },
 ])
 
 createRoot(document.getElementById('root')!).render(
-  <RouterProvider router={router} />
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>
 )

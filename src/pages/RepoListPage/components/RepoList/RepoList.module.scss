@@ -1,0 +1,10 @@
+.repoList {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.repoListNone {
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,55 @@
+$color: rgba(81, 133, 129, 1);
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  display: block;
+  border-radius: 50%;
+
+  width: 40px;
+  height: 40px;
+  border-top: 5px solid $color;
+  border-left: 5px solid $color;
+  border-bottom: 5px solid $color;
+  border-right: 5px solid transparent;
+
+  animation: spin 1s linear infinite;
+
+  &-l {
+    width: 40px;
+    height: 40px;
+    border-top: 5px solid $color;
+    border-left: 5px solid $color;
+    border-bottom: 5px solid $color;
+    border-right: 5px solid transparent;
+  }
+
+  &-m {
+    width: 32px;
+    height: 32px;
+    border-top: 4px solid $color;
+    border-left: 4px solid $color;
+    border-bottom: 4px solid $color;
+    border-right: 4px solid transparent;
+
+    margin: 8px 8px;
+  }
+
+  &-s {
+    width: 16px;
+    height: 16px;
+    border-top: 2px solid $color;
+    border-left: 2px solid $color;
+    border-bottom: 2px solid $color;
+    border-right: 2px solid transparent;
+
+    margin: 4px 4px;
+  }
+}

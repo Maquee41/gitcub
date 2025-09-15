@@ -8,16 +8,16 @@
   padding-right: 40px;
   width: 100%;
   font-size: 16px;
-  border-radius: 0;
-  border: 1px solid #fff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
   outline: none;
-  color: #000;
+  color: var(--color-text);
 
   &::placeholder {
     color: rgba(175, 173, 181, 1);
   }
   &:not(input:disabled):focus {
-    border: 1px solid rgba(81, 133, 129, 1);
+    border: 1px solid var(--color-primary);
   }
   &:disabled {
     background-color: #fff;

@@ -68,71 +68,80 @@ export function RepoDetails() {
     fetchRepo()
   }, [owner, repoName])
 
-  if (loading) return <Loader />
-  if (error) return <Text>{error}</Text>
-  if (!repo) return <Text>Repository not found</Text>
-
   return (
     <>
       <Header logoUrl="/profile.jpg" />
       <main className={styles.main}>
         <div className={styles.inner}>
-          <RepoHeader
-            avatarUrl={repo.owner.avatar_url}
-            ownerName={repo.owner.login}
-            repoName={repo.name}
-            onBack={() => navigate(-1)}
-          />
-          {repo.topics && repo.topics.length > 0 && (
-            <div className={styles.topics}>
-              {repo.topics.map((topic) => (
-                <span key={topic} className={styles.topic}>
-                  {topic}
-                </span>
-              ))}
+          {loading ? (
+            <div className={styles.loaderContainer}>
+              <Loader />
             </div>
-          )}
+          ) : error ? (
+            <Text>{error}</Text>
+          ) : !repo ? (
+            <Text>Repository not found</Text>
+          ) : (
+            <>
+              <RepoHeader
+                avatarUrl={repo.owner.avatar_url}
+                ownerName={repo.owner.login}
+                repoName={repo.name}
+                onBack={() => navigate(-1)}
+              />
 
-          <div className={styles.stats}>
-            <span>⭐ Stars: {repo.stargazers_count}</span>
-            <span>👀 Watching: {repo.watchers_count}</span>
-            <span>🍴 Forks: {repo.forks_count}</span>
-            <span>👥 Contributors: {contributors.length}</span>
-          </div>
+              {repo.topics?.length > 0 && (
+                <div className={styles.topics}>
+                  {repo.topics.map((topic) => (
+                    <span key={topic} className={styles.topic}>
+                      {topic}
+                    </span>
+                  ))}
+                </div>
+              )}
 
-          {languages.length > 0 && (
-            <div className={styles.languages}>
-              <div className={styles.bar}>
-                {languages.map((lang) => (
-                  <div
-                    key={lang.name}
-                    className={styles.segment}
-                    style={{
-                      width: `${lang.percentage}%`,
-                      backgroundColor: lang.color,
-                    }}
-                  />
-                ))}
+              <div className={styles.stats}>
+                <span>⭐ Stars: {repo.stargazers_count}</span>
+                <span>👀 Watching: {repo.watchers_count}</span>
+                <span>🍴 Forks: {repo.forks_count}</span>
+                <span>👥 Contributors: {contributors.length}</span>
               </div>
-              <div className={styles.labels}>
-                {languages.map((lang) => (
-                  <span key={lang.name}>
-                    <span
-                      className={styles.dot}
-                      style={{ backgroundColor: lang.color }}
-                    ></span>
-                    {lang.name} {lang.percentage}%
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
 
-          {readmeHtml && (
-            <div
-              className={styles.readme}
-              dangerouslySetInnerHTML={{ __html: readmeHtml }}
-            ></div>
+              {languages.length > 0 && (
+                <div className={styles.languages}>
+                  <div className={styles.bar}>
+                    {languages.map((lang) => (
+                      <div
+                        key={lang.name}
+                        className={styles.segment}
+                        style={{
+                          width: `${lang.percentage}%`,
+                          backgroundColor: lang.color,
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <div className={styles.labels}>
+                    {languages.map((lang) => (
+                      <span key={lang.name}>
+                        <span
+                          className={styles.dot}
+                          style={{ backgroundColor: lang.color }}
+                        ></span>
+                        {lang.name} {lang.percentage}%
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {readmeHtml && (
+                <div
+                  className={styles.readme}
+                  dangerouslySetInnerHTML={{ __html: readmeHtml }}
+                ></div>
+              )}
+            </>
           )}
         </div>
       </main>

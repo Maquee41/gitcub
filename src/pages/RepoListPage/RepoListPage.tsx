@@ -53,7 +53,7 @@ export function RepoListPage() {
     if (query && selected) {
       fetchRepos(page)
     }
-  })
+  }, [])
 
   useEffect(() => {
     if (!query || !selected) return
@@ -98,7 +98,9 @@ export function RepoListPage() {
           </div>
 
           {loading ? (
-            <Loader />
+            <div className={styles.loader}>
+              <Loader />
+            </div>
           ) : (
             <RepoList
               defaultText={
@@ -110,7 +112,7 @@ export function RepoListPage() {
             />
           )}
 
-          {repos.length > 0 && (
+          {!loading && repos.length > 0 && (
             <Pagination currentPage={page} onPageChange={setPage} />
           )}
         </div>

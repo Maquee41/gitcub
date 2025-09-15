@@ -1,11 +1,11 @@
-import type { Repo } from '@/types/repo'
+import type { RepoDetailsType } from '@/types/repo'
 import { RepoCard } from '../RepoCard/RepoCard'
 import styles from './RepoList.module.scss'
 import Text from '@/components/Text'
 
 interface RepoListProps {
   defaultText: string
-  repos: Repo[]
+  repos: RepoDetailsType[]
 }
 
 export function RepoList({ defaultText, repos }: RepoListProps) {
@@ -27,7 +27,7 @@ export function RepoList({ defaultText, repos }: RepoListProps) {
           description={
             rep.description ? rep.description : 'No description provided'
           }
-          stars={rep.stars}
+          stars={rep.stargazers_count}
           updatedAt={rep.updated_at}
         />
       ))}

@@ -7,7 +7,7 @@ interface RepoCardProps {
   title: string
   description: string
   stars: number
-  updatedAt: Date
+  updatedAt: string
 }
 
 export function RepoCard({

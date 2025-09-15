@@ -31,13 +31,13 @@ export function Dropdown({
   return (
     <div className={clsx('dropdown', disabled && 'disabled', className)}>
       <div
-        className="dropdown__input"
+        className={clsx('dropdown__input', isOpen && 'open')}
         onClick={() => !disabled && setIsOpen((prev) => !prev)}
       >
         {options.find((o) => o.key === value)?.value || placeholder}
         <ArrowDownIcon
-          width={24}
-          hanging={24}
+          width={20}
+          height={20}
           className="dropdown__input-icon"
         />
       </div>
@@ -47,12 +47,8 @@ export function Dropdown({
           {options.map((option) => (
             <div
               key={option.key}
+              className={clsx(value === option.key && 'selected')}
               onClick={() => handleSelect(option.key)}
-              style={{
-                padding: 8,
-                cursor: 'pointer',
-                background: value === option.key ? '#eee' : '#fff',
-              }}
             >
               {option.value}
             </div>

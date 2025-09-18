@@ -1,3 +1,4 @@
+import GithubLogo from '@/assets/github.svg'
 import './Header.scss'
 
 interface HeaderProps {
@@ -11,7 +12,7 @@ const Header = ({ logoUrl }: HeaderProps) => {
         <div className="header-logo">
           <img
             className="header-logo-image"
-            src="/github.svg"
+            src={GithubLogo}
             alt="github logo"
           />
           <span className="header-logo-title">GitCub</span>

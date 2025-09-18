@@ -13,6 +13,7 @@ import styles from './RepoDetails.module.scss'
 import type { LanguageType, RepoDetailsType } from '@/types/repo'
 import { languageColors } from '@/constants/repoDetails'
 import { RepoHeader } from './components/RepoHeader'
+import UserLogo from '@/assets/profile.jpg'
 
 function getLanguageColor(name: string) {
   return languageColors[name] || '#ededed'
@@ -70,7 +71,7 @@ export function RepoDetails() {
 
   return (
     <>
-      <Header logoUrl="/profile.jpg" />
+      <Header logoUrl={UserLogo} />
       <main className={styles.main}>
         <div className={styles.inner}>
           {loading ? (

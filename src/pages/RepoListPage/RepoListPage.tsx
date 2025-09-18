@@ -10,6 +10,8 @@ import Pagination from './components/Pagination/Pagination'
 import Loader from '@/components/Loader/Loader'
 import { getOrgRepos, getUserRepos } from '@/api/repos'
 import type { Option } from '@/types/repo'
+import UserLogo from '@/assets/profile.jpg'
+import SearchIcon from '@/assets/search.svg'
 import styles from './RepoListPage.module.scss'
 
 export function RepoListPage() {
@@ -70,7 +72,7 @@ export function RepoListPage() {
 
   return (
     <>
-      <Header logoUrl="/profile.jpg" />
+      <Header logoUrl={UserLogo} />
       <main className={styles.main}>
         <div className={styles.inner}>
           <Text tag="h2" className={styles.title}>
@@ -92,7 +94,7 @@ export function RepoListPage() {
                 containerClassName={styles.searchInput}
               />
               <Button onClick={handleSearch}>
-                <img src="/search.svg" alt="search icon" />
+                <img src={SearchIcon} alt="search icon" />
               </Button>
             </div>
           </div>

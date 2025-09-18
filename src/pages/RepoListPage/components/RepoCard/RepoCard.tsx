@@ -1,6 +1,7 @@
+import { Link } from 'react-router'
 import Text from '@/components/Text'
 import styles from './RepoCard.module.scss'
-import { Link } from 'react-router'
+import StarIcon from '@/assets/star.svg'
 
 interface RepoCardProps {
   owner: string
@@ -25,7 +26,7 @@ export function RepoCard({
             {title}
           </Text>
           <div className={styles.meta}>
-            <img src="/star.svg" alt="Stars" className={styles.icon} />
+            <img src={StarIcon} alt="Stars" className={styles.icon} />
             <Text className={styles.stars}>{stars}</Text>
             <Text className={styles.updated}>
               Updated{' '}

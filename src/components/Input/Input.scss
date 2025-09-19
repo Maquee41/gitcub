@@ -1,3 +1,5 @@
+@import '/src/styles/colors.scss';
+
 .test-class {
   display: flex;
   position: relative;
@@ -8,16 +10,16 @@
   padding-right: 40px;
   width: 100%;
   font-size: 16px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
+  border-radius: $radius-md;
+  border: 1px solid $color-border;
   outline: none;
-  color: var(--color-text);
+  color: $color-text;
 
   &::placeholder {
     color: rgba(175, 173, 181, 1);
   }
   &:not(input:disabled):focus {
-    border: 1px solid var(--color-primary);
+    border: 1px solid $color-primary;
   }
   &:disabled {
     background-color: #fff;

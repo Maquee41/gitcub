@@ -1,17 +1,9 @@
-.icon-base {
-  fill: currentColor;
-  display: inline-block;
-  vertical-align: middle;
+@use '@/styles/colors.scss' as *;
+
+.check-icon.icon-color-primary path {
+  stroke: $color-text;
 }
 
-.icon-primary {
-  color: black;
-}
-
-.icon-secondary {
-  color: rgba(175, 175, 175, 1);
-}
-
-.icon-accent {
-  color: rgba(81, 133, 129, 1);
+.arrow-down-icon.icon-color-primary path {
+  fill: $color-text;
 }

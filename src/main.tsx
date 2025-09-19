@@ -1,9 +1,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
-import './index.scss'
 import { RepoListPage } from '@/pages/RepoListPage/RepoListPage'
 import { RepoDetails } from '@/pages/RepoDetails/RepoDetails'
+import './styles/index.scss'
 
 const router = createBrowserRouter([
   {

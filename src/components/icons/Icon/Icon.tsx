@@ -1,5 +1,5 @@
 import * as React from 'react'
-import './Icon.css'
+import './Icon.scss'
 
 export type IconProps = React.SVGAttributes<SVGElement> & {
   width?: number

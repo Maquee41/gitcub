@@ -1,6 +1,8 @@
+@use '@/styles/colors.scss' as *;
+
 .btn {
-  background-color: var(--color-primary);
-  color: var(--color-text-inverse, #fff);
+  background-color: $color-primary;
+  // color: $color-text-inverse;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,20 +12,20 @@
   border: none;
   outline: none;
   cursor: pointer;
-  border-radius: var(--radius-md);
+  border-radius: $radius-md;
   transition: background-color 0.2s;
 
   span {
-    border-color: var(--color-border);
+    border-color: $color-border;
     border-right-color: transparent;
   }
 
   &:not(:has(.loader)):not(:disabled):hover {
-    background-color: var(--color-primary-hover);
+    background-color: $color-primary-hover;
   }
 
   &:disabled {
-    background-color: var(--color-primary-disabled);
+    background-color: $color-primary-disabled;
     cursor: not-allowed;
   }
 }

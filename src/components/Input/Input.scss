@@ -1,4 +1,4 @@
-@import '/src/styles/colors.scss';
+@use '/src/styles/colors.scss' as *;
 
 .test-class {
   display: flex;

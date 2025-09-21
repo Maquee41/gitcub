@@ -1,6 +1,4 @@
 import * as React from 'react'
-import '../../../styles/styles.css'
-import './CheckIcon.css'
 import Icon, { type IconProps } from '../Icon/Icon'
 
 const CheckIcon: React.FC<IconProps> = (props) => {
@@ -10,7 +8,7 @@ const CheckIcon: React.FC<IconProps> = (props) => {
   return (
     <Icon
       {...props}
-      className={`${props.className} check-icon`}
+      className={props.className}
       color={props.color}
       width={width}
       height={height}

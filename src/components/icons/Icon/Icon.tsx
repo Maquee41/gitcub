@@ -1,21 +1,17 @@
 import * as React from 'react'
-import './Icon.scss'
 
 export type IconProps = React.SVGAttributes<SVGElement> & {
   width?: number
   height?: number
   className?: string
-  color?: 'primary' | 'secondary' | 'accent'
 }
 
 const Icon: React.FC<React.PropsWithChildren<IconProps>> = ({
   className,
-  color,
   width,
   height,
   ...props
 }) => {
-  color = color ?? 'primary'
   width = width ?? 24
   height = height ?? 24
 
@@ -23,7 +19,7 @@ const Icon: React.FC<React.PropsWithChildren<IconProps>> = ({
     return (
       <svg
         {...props}
-        className={`${className} icon-color-${color}`}
+        className={className}
         width={width}
         height={height}
         viewBox="0 0 24 24"
@@ -37,7 +33,7 @@ const Icon: React.FC<React.PropsWithChildren<IconProps>> = ({
   return (
     <svg
       {...props}
-      className={`${className} icon-color-${color}`}
+      className={className}
       width={width}
       height={height}
       viewBox="0 0 24 24"

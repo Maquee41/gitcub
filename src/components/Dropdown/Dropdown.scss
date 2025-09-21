@@ -14,27 +14,27 @@
     padding: 10px 12px;
     cursor: pointer;
     position: relative;
-    background-color: $color-bg;
+    background-color: $dropdown-bg;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid $color-border;
-    border-radius: $radius-md;
+    border: 1px solid $dropdown-border;
+    border-radius: $border-radius;
     transition:
       border-color 0.2s,
       box-shadow 0.2s;
 
     &-icon {
-      color: $color-text-muted;
+      color: $dropdown-icon;
       transition: transform 0.2s ease;
     }
 
     &:hover {
-      border-color: $color-border-focus;
+      border-color: $dropdown-border-focus;
     }
 
     &:focus-within {
-      border-color: $color-border-focus;
+      border-color: $dropdown-border-focus;
       box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.2);
     }
 
@@ -48,12 +48,12 @@
     top: calc(100% + 4px);
     left: 0;
     right: 0;
-    background: $color-bg;
+    background: $dropdown-bg;
     z-index: 10;
     max-height: 200px;
     overflow-y: auto;
-    border: 1px solid $color-border;
-    border-radius: $radius-md;
+    border: 1px solid $dropdown-border;
+    border-radius: $border-radius;
     animation: fadeIn 0.2s ease;
 
     div {

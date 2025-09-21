@@ -11,8 +11,8 @@
 .checkbox-label {
   width: 40px;
   height: 40px;
-  background-color: #fff;
-  border: 1px solid transparent;
+  background-color: $checkbox-bg;
+  border: 1px solid $checkbox-border;
   cursor: pointer;
   display: grid;
   place-content: center;
@@ -26,19 +26,19 @@
 }
 
 .checkbox-input:not(:disabled) + .checkbox-label:hover {
-  border: 1px solid rgba(81, 133, 129, 1);
+  border: 1px solid $checkbox-border-hover;
 }
 
 .checkbox-input:checked + .checkbox-label svg path {
-  stroke: #518581 !important;
+  stroke: $checkbox-check !important;
 }
 
 .checkbox-input:disabled + .checkbox-label {
-  background-color: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: $checkbox-bg-disabled;
+  border: 1px solid $checkbox-border-disabled;
   cursor: not-allowed;
 }
 
 .checkbox-input:checked:disabled + .checkbox-label svg path {
-  stroke: rgba(0, 0, 0, 0.2) !important;
+  stroke: $checkbox-check-disabled !important;
 }

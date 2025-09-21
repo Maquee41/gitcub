@@ -1,3 +1,5 @@
+@use '/src/styles/colors.scss' as *;
+
 .repolist {
   &__inner {
     max-width: 900px;
@@ -20,8 +22,6 @@
   }
 
   &__topic {
-    background: #f1f8ff;
-    color: #0366d6;
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
     font-size: 0.85rem;
@@ -34,13 +34,13 @@
     gap: 1rem;
     margin-bottom: 1.5rem;
     font-size: 0.9rem;
-    color: #586069;
+    color: $text-primary;
   }
 
   &__readme {
     margin-top: 2rem;
     line-height: 1.6;
-    color: #24292f;
+    color: $text-primary;
   }
 
   &__languages {
@@ -53,7 +53,6 @@
   &__bar {
     height: 10px;
     border-radius: 5px;
-    background: #e1e4e8;
     overflow: hidden;
     display: flex;
   }

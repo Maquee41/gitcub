@@ -16,7 +16,7 @@
   color: $input-text-focus;
 
   &::placeholder {
-    color: $input-text-focus;
+    color: $input-placeholder;
   }
 
   &:not(input:disabled):focus {

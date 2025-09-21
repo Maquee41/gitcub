@@ -12,7 +12,7 @@ import {
 import styles from './RepoDetails.module.scss'
 import type { LanguageType, RepoDetailsType } from '@/types/repo'
 import { languageColors } from '@/constants/repoDetails'
-import { RepoHeader } from './components/RepoHeader'
+import RepoHeader from './components/RepoHeader'
 import UserLogo from '@/assets/profile.jpg'
 
 function getLanguageColor(name: string) {
@@ -102,10 +102,10 @@ export function RepoDetails() {
               )}
 
               <div className={styles.repolist__stats}>
-                <span>⭐ Stars: {repo.stargazers_count}</span>
-                <span>👀 Watching: {repo.watchers_count}</span>
-                <span>🍴 Forks: {repo.forks_count}</span>
-                <span>👥 Contributors: {contributors.length}</span>
+                <Text>⭐ Stars: {repo.stargazers_count}</Text>
+                <Text>👀 Watching: {repo.watchers_count}</Text>
+                <Text>🍴 Forks: {repo.forks_count}</Text>
+                <Text>👥 Contributors: {contributors.length}</Text>
               </div>
 
               {languages.length > 0 && (

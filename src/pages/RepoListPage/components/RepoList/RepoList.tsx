@@ -1,5 +1,5 @@
 import type { RepoDetailsType } from '@/types/repo'
-import { RepoCard } from '../RepoCard/RepoCard'
+import RepoCard from '../RepoCard/RepoCard'
 import styles from './RepoList.module.scss'
 import Text from '@/components/Text'
 
@@ -8,7 +8,7 @@ interface RepoListProps {
   repos: RepoDetailsType[]
 }
 
-export function RepoList({ defaultText, repos }: RepoListProps) {
+export default function RepoList({ defaultText, repos }: RepoListProps) {
   if (repos.length < 1) {
     return (
       <div className={styles['repo-list__empty']}>

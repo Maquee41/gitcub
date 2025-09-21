@@ -11,7 +11,7 @@ interface RepoCardProps {
   updatedAt: string
 }
 
-export function RepoCard({
+export default function RepoCard({
   owner,
   title,
   description,

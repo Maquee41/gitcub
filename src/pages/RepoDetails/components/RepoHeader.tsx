@@ -9,7 +9,7 @@ type RepoHeaderProps = {
   onBack: () => void
 }
 
-export function RepoHeader({
+export default function RepoHeader({
   avatarUrl,
   ownerName,
   repoName,

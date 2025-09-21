@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 import Text from '@/components/Text'
 import styles from './RepoCard.module.scss'
 import StarIcon from '@/assets/star.svg'
+import React from 'react'
 
 interface RepoCardProps {
   owner: string
@@ -11,13 +12,13 @@ interface RepoCardProps {
   updatedAt: string
 }
 
-export default function RepoCard({
+const RepoCard = ({
   owner,
   title,
   description,
   stars,
   updatedAt,
-}: RepoCardProps) {
+}: RepoCardProps) => {
   return (
     <Link to={`/repo/${owner}/${title}`}>
       <div className={styles['repo-card']}>
@@ -47,3 +48,5 @@ export default function RepoCard({
     </Link>
   )
 }
+
+export default React.memo(RepoCard)

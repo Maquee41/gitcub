@@ -9,11 +9,11 @@ import {
   getRepoLanguages,
   getRepoReadme,
 } from '@/api/reposDetailed'
-import styles from './RepoDetails.module.scss'
 import type { LanguageType, RepoDetailsType } from '@/types/repo'
-import { languageColors } from '@/constants/repoDetails'
 import RepoHeader from './components/RepoHeader'
 import UserLogo from '@/assets/profile.jpg'
+import styles from './RepoDetails.module.scss'
+import { languageColors } from './values'
 
 function getLanguageColor(name: string) {
   return languageColors[name] || '#ededed'

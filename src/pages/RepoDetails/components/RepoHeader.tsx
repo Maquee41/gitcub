@@ -3,7 +3,7 @@ import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import styles from './RepoHeader.module.scss'
 import Button from '@/components/Button'
 
-type RepoHeaderProps = {
+interface RepoHeaderProps {
   avatarUrl: string
   ownerName: string
   repoName: string

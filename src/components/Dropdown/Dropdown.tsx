@@ -4,7 +4,7 @@ import ArrowDownIcon from '../icons/ArrowDownIcon'
 import type { Option } from '@/types/repo'
 import './Dropdown.scss'
 
-type DropdownProps = {
+interface DropdownProps {
   options: Option[]
   value: string
   onChange: (value: string) => void

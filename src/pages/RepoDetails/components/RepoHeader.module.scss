@@ -10,7 +10,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
-    background: none;
+    background: none !important;
     border: none;
     color: $button-primary-bg;
     font-size: 0.95rem;

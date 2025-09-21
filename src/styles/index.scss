@@ -1,0 +1,21 @@
+@use 'colors' as *;
+@use './normalize.css' as *;
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('@/styles/fonts/Roboto-VariableFont.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('@/styles/fonts/Roboto-Italic-VariableFont.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+}
+
+body {
+  background-color: #f6f8fa;
+  font-family: 'Roboto', sans-serif;
+}

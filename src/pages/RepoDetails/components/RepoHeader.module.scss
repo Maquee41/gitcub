@@ -1,0 +1,40 @@
+@use '/src/styles/colors.scss' as *;
+
+.repo-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  &__back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: none !important;
+    border: none;
+    color: $button-primary-bg;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+    transform: rotate(90deg);
+
+    &:hover {
+      color: $button-primary-bg-active;
+      background-color: transparent !important;
+    }
+  }
+
+  &__back-button-img {
+    margin-left: 20px;
+  }
+
+  &__avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e1e4e8;
+  }
+}

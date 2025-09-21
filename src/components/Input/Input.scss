@@ -1,0 +1,38 @@
+@use '/src/styles/colors.scss' as *;
+
+.test-class {
+  display: flex;
+  position: relative;
+}
+
+.input {
+  padding: 15px 12px;
+  padding-right: 40px;
+  width: 100%;
+  font-size: 16px;
+  border-radius: $border-radius;
+  border: 1px solid $input-border;
+  outline: none;
+  color: $input-text-focus;
+
+  &::placeholder {
+    color: $input-placeholder;
+  }
+
+  &:not(input:disabled):focus {
+    border: 1px solid $input-text-disabled;
+  }
+
+  &:disabled {
+    background-color: $input-bg-disabled;
+    border-color: $input-border-disabled;
+    cursor: not-allowed;
+  }
+}
+
+.input__after-slot {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}

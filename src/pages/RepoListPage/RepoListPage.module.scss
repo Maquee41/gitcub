@@ -1,0 +1,36 @@
+@use '@/styles/mixins.scss' as *;
+
+.repo-list {
+  flex: 1;
+
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 22px;
+  }
+
+  &__title {
+    @include flex-center;
+  }
+
+  &__loader {
+    @include flex-center;
+  }
+
+  &__search {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__search-section {
+    margin-bottom: 36px;
+  }
+
+  &__search-dropdown {
+    margin-bottom: 20px;
+  }
+
+  &__search-input {
+    flex: 1;
+  }
+}

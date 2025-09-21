@@ -1,0 +1,85 @@
+@use '@/styles/colors.scss' as *;
+
+.dropdown {
+  width: 200px;
+  font-size: 14px;
+  position: relative;
+
+  &.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  &__input {
+    padding: 10px 12px;
+    cursor: pointer;
+    position: relative;
+    background-color: $dropdown-bg;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid $dropdown-border;
+    border-radius: $border-radius;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+
+    &-icon {
+      color: $dropdown-icon;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      border-color: $dropdown-border-focus;
+    }
+
+    &:focus-within {
+      border-color: $dropdown-border-focus;
+      box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.2);
+    }
+
+    &.open .dropdown__input-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: $dropdown-bg;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid $dropdown-border;
+    border-radius: $border-radius;
+    animation: fadeIn 0.2s ease;
+
+    div {
+      padding: 10px 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        // background: $color-bg-hover;
+      }
+
+      &.selected {
+        // background: $color-bg-active;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

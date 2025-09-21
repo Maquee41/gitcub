@@ -71,7 +71,7 @@ export function RepoListPage() {
   }
 
   return (
-    <>
+    <div>
       <Header logoUrl={UserLogo} />
       <main className={styles['repo-list']}>
         <div className={styles['repo-list__inner']}>
@@ -119,6 +119,6 @@ export function RepoListPage() {
           )}
         </div>
       </main>
-    </>
+    </div>
   )
 }

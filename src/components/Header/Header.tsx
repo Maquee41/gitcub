@@ -1,3 +1,4 @@
+import React from 'react'
 import GithubLogo from '@/assets/github.svg'
 import './Header.scss'
 
@@ -25,4 +26,4 @@ const Header = ({ logoUrl }: HeaderProps) => {
   )
 }
 
-export default Header
+export default React.memo(Header)

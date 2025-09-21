@@ -11,4 +11,4 @@ const Loader: React.FC<LoaderProps> = ({ className, size }) => {
   return <span className={`loader loader-${size} ${className}`}></span>
 }
 
-export default Loader
+export default React.memo(Loader)

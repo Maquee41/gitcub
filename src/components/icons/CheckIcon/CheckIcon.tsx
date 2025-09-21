@@ -16,4 +16,4 @@ const CheckIcon: React.FC<IconProps> = (props) => {
   )
 }
 
-export default CheckIcon
+export default React.memo(CheckIcon)

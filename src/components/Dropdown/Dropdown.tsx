@@ -13,14 +13,14 @@ interface DropdownProps {
   className?: string
 }
 
-export default function Dropdown({
+const Dropdown = ({
   options,
   value,
   placeholder,
   onChange,
   disabled,
   className,
-}: DropdownProps) {
+}: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleSelect = (key: string) => {
@@ -58,3 +58,5 @@ export default function Dropdown({
     </div>
   )
 }
+
+export default Dropdown

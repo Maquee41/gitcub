@@ -1,7 +1,8 @@
+import React from 'react'
+import Button from '@/components/Button'
 import Text from '@/components/Text'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import styles from './RepoHeader.module.scss'
-import Button from '@/components/Button'
 
 interface RepoHeaderProps {
   avatarUrl: string
@@ -10,12 +11,12 @@ interface RepoHeaderProps {
   onBack: () => void
 }
 
-export default function RepoHeader({
+const RepoHeader = ({
   avatarUrl,
   ownerName,
   repoName,
   onBack,
-}: RepoHeaderProps) {
+}: RepoHeaderProps) => {
   return (
     <div className={styles['repo-header']}>
       <Button className={styles['repo-header__back-button']} onClick={onBack}>
@@ -36,3 +37,5 @@ export default function RepoHeader({
     </div>
   )
 }
+
+export default React.memo(RepoHeader)

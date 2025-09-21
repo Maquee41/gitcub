@@ -8,11 +8,11 @@ interface PaginatorProps {
   className?: string
 }
 
-export default function Paginator({
+const Paginator = ({
   currentPage,
   onPageChange,
   className,
-}: PaginatorProps) {
+}: PaginatorProps) => {
   const pages: (number | '…')[] = []
 
   pages.push(1)
@@ -52,3 +52,5 @@ export default function Paginator({
     </div>
   )
 }
+
+export default Paginator

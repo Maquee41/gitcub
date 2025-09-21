@@ -1,3 +1,4 @@
+import React from 'react'
 import type { RepoDetailsType } from '@/types/repo'
 import RepoCard from '../RepoCard/RepoCard'
 import styles from './RepoList.module.scss'
@@ -8,7 +9,7 @@ interface RepoListProps {
   repos: RepoDetailsType[]
 }
 
-export default function RepoList({ defaultText, repos }: RepoListProps) {
+const RepoList = ({ defaultText, repos }: RepoListProps) => {
   if (repos.length < 1) {
     return (
       <div className={styles['repo-list__empty']}>
@@ -34,3 +35,5 @@ export default function RepoList({ defaultText, repos }: RepoListProps) {
     </div>
   )
 }
+
+export default React.memo(RepoList)

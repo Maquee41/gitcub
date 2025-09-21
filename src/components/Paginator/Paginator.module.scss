@@ -1,3 +1,5 @@
+@use '@/styles/colors.scss' as *;
+
 .pagination {
   display: flex;
   gap: 6px;
@@ -6,21 +8,24 @@
 
   &__button {
     padding: 6px 12px;
-    border: 1px solid #ccc;
-    background: white;
+    border: 1px solid $color-gray-light;
+    background: $color-white;
     cursor: pointer;
     border-radius: 4px;
     font-size: 14px;
 
     &:hover {
-      background: #f0f0f0;
+      background: rgba($button-primary-bg-hover, 0.65) !important;
     }
 
     &.active {
-      background: #518581;
-      color: white;
-      border-color: #518581;
+      background: $button-primary-bg;
+      color: $color-white;
       cursor: default;
+
+      &:hover {
+        background-color: $button-primary-bg !important;
+      }
     }
 
     &:disabled {

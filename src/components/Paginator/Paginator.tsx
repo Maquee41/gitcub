@@ -1,18 +1,19 @@
-import styles from './Pagination.module.scss'
 import clsx from 'clsx'
+import Button from '@/components/Button'
+import styles from './Paginator.module.scss'
 
-interface PaginationProps {
+interface PaginatorProps {
   currentPage: number
   onPageChange: (page: number) => void
   className?: string
 }
 
-export default function Pagination({
+export default function Paginator({
   currentPage,
   onPageChange,
   className,
-}: PaginationProps) {
-  const pages: (number | string)[] = []
+}: PaginatorProps) {
+  const pages: (number | '…')[] = []
 
   pages.push(1)
 
@@ -37,15 +38,15 @@ export default function Pagination({
             …
           </span>
         ) : (
-          <button
+          <Button
             key={num}
             className={clsx(styles.pagination__button, {
               [styles.active]: num === currentPage,
             })}
-            onClick={() => onPageChange(num as number)}
+            onClick={() => onPageChange(num)}
           >
             {num}
-          </button>
+          </Button>
         )
       )}
     </div>

@@ -6,7 +6,7 @@ import Input from '@/components/Input'
 import Button from '@/components/Button/Button'
 import Dropdown from '@/components/Dropdown/Dropdown'
 import RepoList from './components/RepoList/RepoList'
-import Pagination from './components/Pagination/Pagination'
+import Paginator from '@/components/Paginator'
 import Loader from '@/components/Loader/Loader'
 import { getOrgRepos, getUserRepos } from '@/api/repos'
 import type { Option } from '@/types/repo'
@@ -115,7 +115,7 @@ export function RepoListPage() {
           )}
 
           {!loading && repos.length > 0 && (
-            <Pagination currentPage={page} onPageChange={setPage} />
+            <Paginator currentPage={page} onPageChange={setPage} />
           )}
         </div>
       </main>

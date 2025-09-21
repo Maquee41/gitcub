@@ -20,15 +20,19 @@ export function RepoCard({
 }: RepoCardProps) {
   return (
     <Link to={`/repo/${owner}/${title}`}>
-      <div className={styles.card}>
-        <div className={styles.header}>
-          <Text tag="h3" className={styles.title}>
+      <div className={styles['repo-card']}>
+        <div className={styles['repo-card__header']}>
+          <Text tag="h3" className={styles['repo-card__title']}>
             {title}
           </Text>
-          <div className={styles.meta}>
-            <img src={StarIcon} alt="Stars" className={styles.icon} />
-            <Text className={styles.stars}>{stars}</Text>
-            <Text className={styles.updated}>
+          <div className={styles['repo-card__meta']}>
+            <img
+              src={StarIcon}
+              alt="Stars"
+              className={styles['repo-card__icon']}
+            />
+            <Text className={styles['repo-card__stars']}>{stars}</Text>
+            <Text className={styles['repo-card__updated']}>
               Updated{' '}
               {new Date(updatedAt).toLocaleDateString('en-US', {
                 year: 'numeric',
@@ -38,7 +42,7 @@ export function RepoCard({
             </Text>
           </div>
         </div>
-        <Text className={styles.description}>{description}</Text>
+        <Text className={styles['repo-card__description']}>{description}</Text>
       </div>
     </Link>
   )

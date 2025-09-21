@@ -3,34 +3,34 @@
   gap: 6px;
   justify-content: center;
   margin: 16px 0;
-}
 
-.button {
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  background: white;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 14px;
+  &__button {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
 
-  &:hover {
-    background: #f0f0f0;
+    &:hover {
+      background: #f0f0f0;
+    }
+
+    &.active {
+      background: #518581;
+      color: white;
+      border-color: #518581;
+      cursor: default;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
   }
 
-  &.active {
-    background: #518581;
-    color: white;
-    border-color: #518581;
-    cursor: default;
+  &__dots {
+    padding: 6px 4px;
+    font-size: 14px;
   }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-}
-
-.dots {
-  padding: 6px 4px;
-  font-size: 14px;
 }

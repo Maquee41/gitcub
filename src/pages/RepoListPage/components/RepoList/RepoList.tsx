@@ -11,14 +11,14 @@ interface RepoListProps {
 export function RepoList({ defaultText, repos }: RepoListProps) {
   if (repos.length < 1) {
     return (
-      <div className={styles.repoListNone}>
+      <div className={styles['repo-list__empty']}>
         <Text>{defaultText}</Text>
       </div>
     )
   }
 
   return (
-    <div className={styles.repoList}>
+    <div className={styles['repo-list']}>
       {repos.map((rep) => (
         <RepoCard
           key={rep.id}

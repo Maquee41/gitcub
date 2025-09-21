@@ -33,13 +33,13 @@ export default function Pagination({
     <div className={clsx(styles.pagination, className)}>
       {pages.map((num, index) =>
         num === '…' ? (
-          <span key={`dots-${index}`} className={styles.dots}>
+          <span key={`dots-${index}`} className={styles.pagination__dots}>
             …
           </span>
         ) : (
           <button
             key={num}
-            className={clsx(styles.button, {
+            className={clsx(styles.pagination__button, {
               [styles.active]: num === currentPage,
             })}
             onClick={() => onPageChange(num as number)}

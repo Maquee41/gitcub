@@ -73,25 +73,25 @@ export function RepoListPage() {
   return (
     <>
       <Header logoUrl={UserLogo} />
-      <main className={styles.main}>
-        <div className={styles.inner}>
-          <Text tag="h2" className={styles.title}>
+      <main className={styles['repo-list']}>
+        <div className={styles['repo-list__inner']}>
+          <Text tag="h2" className={styles['repo-list__title']}>
             List of organization repositories
           </Text>
-          <div className={styles.searchSection}>
+          <div className={styles['repo-list__search-section']}>
             <Dropdown
               options={options}
               value={selected}
               placeholder="Type"
               onChange={setSelected}
-              className={styles.searchDropdown}
+              className={styles['repo-list__search-dropdown']}
             />
-            <div className={styles.search}>
+            <div className={styles['repo-list__search']}>
               <Input
                 value={query}
                 placeholder="Enter organization name"
                 onChange={setQuery}
-                containerClassName={styles.searchInput}
+                containerClassName={styles['repo-list__search-input']}
               />
               <Button onClick={handleSearch}>
                 <img src={SearchIcon} alt="search icon" />
@@ -100,7 +100,7 @@ export function RepoListPage() {
           </div>
 
           {loading ? (
-            <div className={styles.loader}>
+            <div className={styles['repo-list__loader']}>
               <Loader />
             </div>
           ) : (

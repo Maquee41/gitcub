@@ -72,10 +72,10 @@ export function RepoDetails() {
   return (
     <>
       <Header logoUrl={UserLogo} />
-      <main className={styles.main}>
-        <div className={styles.inner}>
+      <main className={styles.repolist}>
+        <div className={styles.repolist__inner}>
           {loading ? (
-            <div className={styles.loaderContainer}>
+            <div className={styles.repolist__loader}>
               <Loader />
             </div>
           ) : error ? (
@@ -92,16 +92,16 @@ export function RepoDetails() {
               />
 
               {repo.topics?.length > 0 && (
-                <div className={styles.topics}>
+                <div className={styles.repolist__topics}>
                   {repo.topics.map((topic) => (
-                    <span key={topic} className={styles.topic}>
+                    <span key={topic} className={styles.repolist__topic}>
                       {topic}
                     </span>
                   ))}
                 </div>
               )}
 
-              <div className={styles.stats}>
+              <div className={styles.repolist__stats}>
                 <span>⭐ Stars: {repo.stargazers_count}</span>
                 <span>👀 Watching: {repo.watchers_count}</span>
                 <span>🍴 Forks: {repo.forks_count}</span>
@@ -109,12 +109,12 @@ export function RepoDetails() {
               </div>
 
               {languages.length > 0 && (
-                <div className={styles.languages}>
-                  <div className={styles.bar}>
+                <div className={styles.repolist__languages}>
+                  <div className={styles.repolist__bar}>
                     {languages.map((lang) => (
                       <div
                         key={lang.name}
-                        className={styles.segment}
+                        className={styles.repolist__segment}
                         style={{
                           width: `${lang.percentage}%`,
                           backgroundColor: lang.color,
@@ -122,11 +122,11 @@ export function RepoDetails() {
                       />
                     ))}
                   </div>
-                  <div className={styles.labels}>
+                  <div className={styles.repolist__labels}>
                     {languages.map((lang) => (
-                      <span key={lang.name}>
+                      <span key={lang.name} className={styles.repolist__label}>
                         <span
-                          className={styles.dot}
+                          className={styles['repolist__labels-dot']}
                           style={{ backgroundColor: lang.color }}
                         ></span>
                         {lang.name} {lang.percentage}%
@@ -138,7 +138,7 @@ export function RepoDetails() {
 
               {readmeHtml && (
                 <div
-                  className={styles.readme}
+                  className={styles.repolist__readme}
                   dangerouslySetInnerHTML={{ __html: readmeHtml }}
                 ></div>
               )}

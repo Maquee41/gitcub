@@ -1,4 +1,4 @@
-.card {
+.repo-card {
   background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
@@ -11,45 +11,45 @@
   &:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
-}
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 12px;
-}
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
 
-.title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #111827;
-}
+  &__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+  }
 
-.meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #6b7280;
-}
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #6b7280;
+  }
 
-.icon {
-  width: 16px;
-  height: 16px;
-}
+  &__icon {
+    width: 16px;
+    height: 16px;
+  }
 
-.stars {
-  font-weight: 500;
-}
+  &__stars {
+    font-weight: 500;
+  }
 
-.updated {
-  font-size: 13px;
-  color: #9ca3af;
-}
+  &__updated {
+    font-size: 13px;
+    color: #9ca3af;
+  }
 
-.description {
-  font-size: 14px;
-  color: #374151;
-  line-height: 1.5;
+  &__description {
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.5;
+  }
 }

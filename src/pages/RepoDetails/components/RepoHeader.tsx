@@ -1,6 +1,7 @@
 import Text from '@/components/Text'
 import ArrowDownIcon from '@/components/icons/ArrowDownIcon'
 import styles from './RepoHeader.module.scss'
+import Button from '@/components/Button'
 
 type RepoHeaderProps = {
   avatarUrl: string
@@ -17,13 +18,13 @@ export default function RepoHeader({
 }: RepoHeaderProps) {
   return (
     <div className={styles['repo-header']}>
-      <button className={styles['repo-header__back-button']} onClick={onBack}>
+      <Button className={styles['repo-header__back-button']} onClick={onBack}>
         <ArrowDownIcon
           width={30}
           height={30}
           className={styles['repo-header__back-button-img']}
         />
-      </button>
+      </Button>
       <img
         src={avatarUrl}
         alt={ownerName}

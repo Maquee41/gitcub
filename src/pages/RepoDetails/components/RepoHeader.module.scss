@@ -1,3 +1,5 @@
+@use '/src/styles/colors.scss' as *;
+
 .repo-header {
   display: flex;
   align-items: center;
@@ -10,13 +12,18 @@
     gap: 0.3rem;
     background: none;
     border: none;
-    color: #1f883d;
+    color: $button-primary-bg;
     font-size: 0.95rem;
     font-weight: 500;
     cursor: pointer;
     margin-bottom: 1rem;
     transition: color 0.2s;
     transform: rotate(90deg);
+
+    &:hover {
+      color: $button-primary-bg-active;
+      background-color: transparent !important;
+    }
   }
 
   &__back-button-img {

@@ -11,8 +11,8 @@ import RepoList from './components/RepoList/RepoList'
 import Paginator from '@/components/Paginator'
 import Loader from '@/components/Loader/Loader'
 
+import type { Option } from '@/store/RepoStore/repo'
 import { repoStore } from '@/store/RepoStore/RepoStore'
-import type { Option } from '@/types/repo'
 
 import UserLogo from '@/assets/profile.jpg'
 import SearchIcon from '@/assets/search.svg'
@@ -27,28 +27,42 @@ export const RepoListPage = observer(() => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
-    const selected = searchParams.get('type') || ''
-    const query = searchParams.get('query') || ''
+    const type = searchParams.get('type') ?? ''
+    const query = searchParams.get('query') ?? ''
     const page = Number(searchParams.get('page')) || 1
 
-    repoStore.setSelected(selected)
+    repoStore.setSelected(type)
     repoStore.setQuery(query)
     repoStore.setPage(page)
 
-    if (query && selected) {
-      repoStore.fetchRepos(page, query, selected)
+    if (type && query) {
+      repoStore.fetchRepos(page, query, type)
     }
   }, [])
 
   useEffect(() => {
     if (!repoStore.query || !repoStore.selected) return
+
     repoStore.fetchRepos(repoStore.page)
     setSearchParams({
       type: repoStore.selected,
       query: repoStore.query,
       page: String(repoStore.page),
     })
-  }, [repoStore.page])
+  }, [repoStore.page, setSearchParams])
+
+  const onSearch = () => {
+    if (!repoStore.query || !repoStore.selected) return
+
+    repoStore.setPage(1)
+    repoStore.fetchRepos(1, repoStore.query, repoStore.selected)
+
+    setSearchParams({
+      type: repoStore.selected,
+      query: repoStore.query,
+      page: '1',
+    })
+  }
 
   return (
     <div>
@@ -74,7 +88,7 @@ export const RepoListPage = observer(() => {
                 onChange={repoStore.setQuery}
                 containerClassName={styles['repo-list__search-input']}
               />
-              <Button onClick={repoStore.handleSearch}>
+              <Button onClick={onSearch}>
                 <img src={SearchIcon} alt="search icon" />
               </Button>
             </div>

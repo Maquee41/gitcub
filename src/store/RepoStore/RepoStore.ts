@@ -1,11 +1,12 @@
 import { getOrgRepos, getUserRepos } from '@/api/repos'
 import { makeAutoObservable, runInAction } from 'mobx'
+import type { RepoDetailsType } from './repo'
 
 class RepoStore {
   selected: string = ''
   query: string = ''
   page: number = 1
-  repos: any[] = []
+  repos: RepoDetailsType[] = []
   loading: boolean = false
   errorMessage: string | null = null
 

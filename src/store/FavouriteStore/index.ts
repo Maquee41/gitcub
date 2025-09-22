@@ -1,1 +1,2 @@
-export { default } from './FavouriteStore'
+export * from './FavouriteRepo'
+export { favouriteStore } from './FavouriteStore'

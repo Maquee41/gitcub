@@ -7,11 +7,13 @@
     max-width: 1200px;
     margin: 0 auto;
     padding-block: 28px 22px;
+    padding-inline: 20px;
   }
 
   &__title {
     @include flex-center;
     margin-bottom: 28px;
+    text-align: center;
   }
 
   &__loader {

@@ -1,12 +1,12 @@
 import React from 'react'
-import type { RepoDetailsType } from '@/store/RepoListStore/repo'
 import RepoCard from '../RepoCard/RepoCard'
 import styles from './RepoList.module.scss'
 import Text from '@/components/Text'
+import type { RepoItemModel } from '@/store/models/GitHub'
 
 interface RepoListProps {
   defaultText: string
-  repos: RepoDetailsType[]
+  repos: RepoItemModel[]
 }
 
 const RepoList = ({ defaultText, repos }: RepoListProps) => {
@@ -28,8 +28,8 @@ const RepoList = ({ defaultText, repos }: RepoListProps) => {
           description={
             rep.description ? rep.description : 'No description provided'
           }
-          stars={rep.stargazers_count}
-          updatedAt={rep.updated_at}
+          stars={rep.stargazersCount}
+          updatedAt={rep.updatedAt}
         />
       ))}
     </div>

@@ -13,7 +13,7 @@ interface RepoCardProps {
   title: string
   description: string
   stars: number
-  updatedAt: string
+  updatedAt: Date
 }
 
 const RepoCard = observer(
@@ -46,12 +46,7 @@ const RepoCard = observer(
               />
               <Text className={styles['repo-card__stars']}>{stars}</Text>
               <Text className={styles['repo-card__updated']}>
-                Updated{' '}
-                {new Date(updatedAt).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                })}
+                {updatedAt.toLocaleDateString('en-US')}
               </Text>
             </div>
           </div>

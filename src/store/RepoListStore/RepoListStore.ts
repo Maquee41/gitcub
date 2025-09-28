@@ -1,13 +1,14 @@
 import { getOrgRepos, getUserRepos } from '@/api/repos'
 import { makeAutoObservable, runInAction } from 'mobx'
 import type { RepoDetailsType } from './repo'
+import { MetaState } from '@/types/metaState'
 
 export class RepoListStore {
   selected: string = ''
   query: string = ''
   page: number = 1
   repos: RepoDetailsType[] = []
-  loading: boolean = false
+  meta: MetaState = MetaState.Initial
   errorMessage: string | null = null
 
   constructor() {
@@ -33,7 +34,7 @@ export class RepoListStore {
   ) => {
     if (!q || !t) return
 
-    this.loading = true
+    this.meta = MetaState.Loading
     this.errorMessage = null
 
     try {
@@ -46,15 +47,13 @@ export class RepoListStore {
 
       runInAction(() => {
         this.repos = data
+        this.meta = MetaState.Success
       })
     } catch (err) {
       console.error(err)
       runInAction(() => {
         this.errorMessage = 'Failed to fetch repositories'
-      })
-    } finally {
-      runInAction(() => {
-        this.loading = false
+        this.meta = MetaState.Error
       })
     }
   }

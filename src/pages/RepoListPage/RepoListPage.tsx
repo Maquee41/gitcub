@@ -17,6 +17,7 @@ import UserLogo from '@/assets/profile.jpg'
 import SearchIcon from '@/assets/search.svg'
 import styles from './RepoListPage.module.scss'
 import { useRepoListStore } from '@/store/RepoListStore'
+import { MetaState } from '@/types/metaState'
 
 export const RepoListPage = observer(() => {
   const repoStore = useRepoListStore()
@@ -96,7 +97,7 @@ export const RepoListPage = observer(() => {
             </div>
           </div>
 
-          {repoStore.loading ? (
+          {repoStore.meta === MetaState.Loading ? (
             <div className={styles['repo-list__loader']}>
               <Loader />
             </div>
@@ -111,12 +112,13 @@ export const RepoListPage = observer(() => {
             />
           )}
 
-          {!repoStore.loading && repoStore.repos.length > 0 && (
-            <Paginator
-              currentPage={repoStore.page}
-              onPageChange={repoStore.setPage}
-            />
-          )}
+          {repoStore.meta !== MetaState.Loading &&
+            repoStore.repos.length > 0 && (
+              <Paginator
+                currentPage={repoStore.page}
+                onPageChange={repoStore.setPage}
+              />
+            )}
         </div>
       </main>
     </div>

@@ -10,6 +10,7 @@ import RepoHeader from './components/RepoHeader'
 import UserLogo from '@/assets/profile.jpg'
 import styles from './RepoDetailsPage.module.scss'
 import { useRepoDetailsStore } from '@/store/RepoDetailsStore'
+import { MetaState } from '@/types/metaState'
 
 export const RepoDetailsPage = observer(() => {
   const { owner, repoName } = useParams<{ owner: string; repoName: string }>()
@@ -26,7 +27,7 @@ export const RepoDetailsPage = observer(() => {
     }
   }, [owner, repoName])
 
-  const { repo, contributors, languages, readmeHtml, loading, error } =
+  const { repo, contributors, languages, readmeHtml, meta, error } =
     useRepoDetailsStore()
 
   return (
@@ -34,7 +35,7 @@ export const RepoDetailsPage = observer(() => {
       <Header logoUrl={UserLogo} />
       <main className={styles.repolist}>
         <div className={styles.repolist__inner}>
-          {loading ? (
+          {meta === MetaState.Loading ? (
             <div className={styles.repolist__loader}>
               <Loader />
             </div>

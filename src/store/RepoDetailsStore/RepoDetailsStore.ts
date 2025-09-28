@@ -5,8 +5,9 @@ import {
   getRepoLanguages,
   getRepoReadme,
 } from '@/api/reposDetailed'
-import type { LanguageType, RepoDetailsType } from '@/store/RepoStore/repo'
+import type { LanguageType, RepoDetailsType } from '../RepoListStore/repo'
 import { languageColors } from '@/pages/RepoDetailsPage/values'
+import { MetaState } from '@/types/metaState'
 
 function getLanguageColor(name: string) {
   return languageColors[name] || '#ededed'
@@ -18,7 +19,7 @@ export class RepoDetailsStore {
   contributors: unknown[] = []
   languages: LanguageType[] = []
   readmeHtml: string = ''
-  loading: boolean = false
+  meta: MetaState = MetaState.Initial
   error: string | null = null
 
   constructor() {
@@ -26,7 +27,7 @@ export class RepoDetailsStore {
   }
 
   fetchRepo = async (owner: string, repoName: string) => {
-    this.loading = true
+    this.meta = MetaState.Loading
     this.error = null
 
     try {
@@ -53,15 +54,13 @@ export class RepoDetailsStore {
         this.contributors = contributorsData
         this.languages = formattedLanguages
         this.readmeHtml = readmeData
+        this.meta = MetaState.Success
       })
     } catch (err) {
       console.error(err)
       runInAction(() => {
         this.error = 'Failed to load repository details'
-      })
-    } finally {
-      runInAction(() => {
-        this.loading = false
+        this.meta = MetaState.Error
       })
     }
   }
@@ -72,6 +71,6 @@ export class RepoDetailsStore {
     this.languages = []
     this.readmeHtml = ''
     this.error = null
-    this.loading = false
+    this.meta = MetaState.Initial
   }
 }

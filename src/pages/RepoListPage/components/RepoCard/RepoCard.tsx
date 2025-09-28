@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Link } from 'react-router'
 import { observer } from 'mobx-react-lite'
 import StarIcon from '@/assets/star.svg'
@@ -20,13 +20,16 @@ const RepoCard = observer(
   ({ owner, title, description, stars, updatedAt }: RepoCardProps) => {
     const isFavourite = favouriteStore.isFavourite(title)
 
-    const toggleFavourite = (e: React.MouseEvent) => {
-      e.preventDefault()
-      favouriteStore.toggle({
-        account: owner,
-        repoName: title,
-      })
-    }
+    const toggleFavourite = useCallback(
+      (e: React.MouseEvent) => {
+        e.preventDefault()
+        favouriteStore.toggle({
+          account: owner,
+          repoName: title,
+        })
+      },
+      [owner, title]
+    )
 
     return (
       <Link to={`/repo/${owner}/${title}`}>

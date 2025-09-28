@@ -1,13 +1,17 @@
 import { getOrgRepos, getUserRepos } from '@/api/repos'
 import { action, computed, makeAutoObservable, runInAction } from 'mobx'
-import type { RepoDetailsType } from './repo'
 import { MetaState } from '@/types/metaState'
+import {
+  normalizeRepoItem,
+  type RepoItemApi,
+  type RepoItemModel,
+} from '../models/GitHub'
 
 export class RepoListStore {
   private _selected: string = ''
   private _query: string = ''
   private _page: number = 1
-  private _repos: RepoDetailsType[] = []
+  private _repos: RepoItemModel[] = []
   private _meta: MetaState = MetaState.Initial
   private _errorMessage: string | null = null
 
@@ -39,7 +43,7 @@ export class RepoListStore {
     return this._page
   }
 
-  get repos(): RepoDetailsType[] {
+  get repos(): RepoItemModel[] {
     return this._repos
   }
 
@@ -74,15 +78,17 @@ export class RepoListStore {
     this._errorMessage = null
 
     try {
-      let data: RepoDetailsType[] = []
+      let data: RepoItemApi[] = []
       if (t === 'organization') {
         data = await getOrgRepos(q, p)
       } else if (t === 'user') {
         data = await getUserRepos(q, p)
       }
 
+      const normalizedData: RepoItemModel[] = data.map(normalizeRepoItem)
+
       runInAction(() => {
-        this._repos = data
+        this._repos = normalizedData
         this._meta = MetaState.Success
       })
     } catch (err) {

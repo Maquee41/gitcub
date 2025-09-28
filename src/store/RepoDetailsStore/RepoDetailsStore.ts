@@ -5,18 +5,27 @@ import {
   getRepoLanguages,
   getRepoReadme,
 } from '@/api/reposDetailed'
-import type { LanguageType, RepoDetailsType } from '../RepoListStore/repo'
-import { languageColors } from '@/pages/RepoDetailsPage/values'
-import { MetaState } from '@/types/metaState'
 
-function getLanguageColor(name: string) {
-  return languageColors[name] || '#ededed'
-}
+import { MetaState } from '@/types/metaState'
+import {
+  normalizeRepoItem,
+  type RepoItemApi,
+  type RepoItemModel,
+} from '../models/GitHub'
+import {
+  parseLanguageApiResponse,
+  type LanguageItemModel,
+} from '../models/GitHub/languageItem'
+import {
+  normalizeContributorItem,
+  type ContributorItemApi,
+  type ContributorItemModel,
+} from '../models/GitHub/contributorItem'
 
 export class RepoDetailsStore {
-  private _repo: RepoDetailsType | null = null
-  private _contributors: unknown[] = []
-  private _languages: LanguageType[] = []
+  private _repo: RepoItemModel | null = null
+  private _contributors: ContributorItemModel[] = []
+  private _languages: LanguageItemModel[] = []
   private _readmeHtml: string = ''
   private _meta: MetaState = MetaState.Initial
   private _error: string | null = null
@@ -35,15 +44,15 @@ export class RepoDetailsStore {
     })
   }
 
-  get repo(): RepoDetailsType | null {
+  get repo(): RepoItemModel | null {
     return this._repo
   }
 
-  get contributors(): unknown[] {
+  get contributors(): ContributorItemModel[] {
     return this._contributors
   }
 
-  get languages(): LanguageType[] {
+  get languages(): LanguageItemModel[] {
     return this._languages
   }
 
@@ -64,28 +73,24 @@ export class RepoDetailsStore {
     this._error = null
 
     try {
-      const repoData = await getRepoDetails(owner, repoName)
-      const contributorsData = await getRepoContributors(owner, repoName)
+      const repoData: RepoItemApi = await getRepoDetails(owner, repoName)
+      const contributorsData: ContributorItemApi[] = await getRepoContributors(
+        owner,
+        repoName
+      )
       const languagesData = await getRepoLanguages(owner, repoName)
-
-      const total = Object.values(
-        languagesData as Record<string, number>
-      ).reduce((acc, val) => acc + val, 0)
-
-      const formattedLanguages: LanguageType[] = Object.entries(
-        languagesData
-      ).map(([name, size]) => ({
-        name,
-        percentage: Math.round(((size as number) / total) * 100),
-        color: getLanguageColor(name),
-      }))
-
       const readmeData = await getRepoReadme(owner, repoName)
 
+      const normalizedRepoData: RepoItemModel = normalizeRepoItem(repoData)
+      const normalizedContributorsData: ContributorItemModel[] =
+        contributorsData.map(normalizeContributorItem)
+      const normalizedLanguagesData: LanguageItemModel[] =
+        parseLanguageApiResponse(languagesData)
+
       runInAction(() => {
-        this._repo = repoData
-        this._contributors = contributorsData
-        this._languages = formattedLanguages
+        this._repo = normalizedRepoData
+        this._contributors = normalizedContributorsData
+        this._languages = normalizedLanguagesData
         this._readmeHtml = readmeData
         this._meta = MetaState.Success
       })

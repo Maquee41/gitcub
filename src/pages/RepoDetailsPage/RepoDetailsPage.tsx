@@ -46,7 +46,7 @@ export const RepoDetailsPage = observer(() => {
           ) : (
             <>
               <RepoHeader
-                avatarUrl={repo.owner.avatar_url}
+                avatarUrl={repo.owner.avatarUrl}
                 ownerName={repo.owner.login}
                 repoName={repo.name}
                 onBack={() => navigate(-1)}
@@ -63,9 +63,9 @@ export const RepoDetailsPage = observer(() => {
               )}
 
               <div className={styles.repolist__stats}>
-                <Text>⭐ Stars: {repo.stargazers_count}</Text>
-                <Text>👀 Watching: {repo.watchers_count}</Text>
-                <Text>🍴 Forks: {repo.forks_count}</Text>
+                <Text>⭐ Stars: {repo.stargazersCount}</Text>
+                <Text>👀 Watching: {repo.watchersCount}</Text>
+                <Text>🍴 Forks: {repo.forksCount}</Text>
                 <Text>👥 Contributors: {contributors.length}</Text>
               </div>
 

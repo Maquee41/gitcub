@@ -11,13 +11,13 @@ import RepoList from './components/RepoList/RepoList'
 import Paginator from '@/components/Paginator'
 import Loader from '@/components/Loader/Loader'
 
-import type { Option } from '@/store/RepoListStore/repo'
+import { useRepoListStore } from '@/store/RepoListStore'
+import { MetaState } from '@/types/metaState'
+import type { Option } from '@/types/option'
 
 import UserLogo from '@/assets/profile.jpg'
 import SearchIcon from '@/assets/search.svg'
 import styles from './RepoListPage.module.scss'
-import { useRepoListStore } from '@/store/RepoListStore'
-import { MetaState } from '@/types/metaState'
 
 export const RepoListPage = observer(() => {
   const repoStore = useRepoListStore()

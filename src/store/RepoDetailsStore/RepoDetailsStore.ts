@@ -6,15 +6,16 @@ import {
   getRepoReadme,
 } from '@/api/reposDetailed'
 import type { LanguageType, RepoDetailsType } from '@/store/RepoStore/repo'
-import { languageColors } from '@/pages/RepoDetails/values'
+import { languageColors } from '@/pages/RepoDetailsPage/values'
 
 function getLanguageColor(name: string) {
   return languageColors[name] || '#ededed'
 }
 
-class RepoDetailsStore {
+export class RepoDetailsStore {
   repo: RepoDetailsType | null = null
-  contributors: any[] = []
+
+  contributors: unknown[] = []
   languages: LanguageType[] = []
   readmeHtml: string = ''
   loading: boolean = false
@@ -74,5 +75,3 @@ class RepoDetailsStore {
     this.loading = false
   }
 }
-
-export const repoDetailsStore = new RepoDetailsStore()

@@ -7,26 +7,27 @@ import Text from '@/components/Text'
 import Loader from '@/components/Loader/Loader'
 import RepoHeader from './components/RepoHeader'
 
-import { repoDetailsStore } from '@/store/RepoDetailsStore/RepoDetailsStore'
-
 import UserLogo from '@/assets/profile.jpg'
-import styles from './RepoDetails.module.scss'
+import styles from './RepoDetailsPage.module.scss'
+import { useRepoDetailsStore } from '@/store/RepoDetailsStore'
 
-export const RepoDetails = observer(() => {
+export const RepoDetailsPage = observer(() => {
   const { owner, repoName } = useParams<{ owner: string; repoName: string }>()
   const navigate = useNavigate()
 
+  const { fetchRepo, reset } = useRepoDetailsStore()
+
   useEffect(() => {
     if (owner && repoName) {
-      repoDetailsStore.fetchRepo(owner, repoName)
+      fetchRepo(owner, repoName)
     }
     return () => {
-      repoDetailsStore.reset()
+      reset()
     }
   }, [owner, repoName])
 
   const { repo, contributors, languages, readmeHtml, loading, error } =
-    repoDetailsStore
+    useRepoDetailsStore()
 
   return (
     <>

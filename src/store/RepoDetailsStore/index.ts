@@ -1,2 +1,3 @@
 export * from './RepoDetailsStore'
-export { repoDetailsStore } from './RepoDetailsStore'
+export { RepoDetailsStore } from './RepoDetailsStore'
+export * from './context'

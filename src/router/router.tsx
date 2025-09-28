@@ -1,12 +1,15 @@
 import type { JSX } from 'react'
-import { RepoDetails } from '@/pages/RepoDetails/RepoDetails'
-import { RepoListPage } from '@/pages/RepoListPage/RepoListPage'
 import { createBrowserRouter } from 'react-router'
+import withRepoDetailsProvider from '@/hoks/withRepoDetailsProvider'
+import { RepoListPage } from '@/pages/RepoListPage/RepoListPage'
+import { RepoDetailsPage } from '@/pages/RepoDetailsPage/RepoDetailsPage'
 
 interface RouteItem {
   path: string
   element: JSX.Element
 }
+
+const RepoDetailsPageWithProvider = withRepoDetailsProvider(RepoDetailsPage)
 
 const ROUTER: RouteItem[] = [
   {
@@ -15,7 +18,7 @@ const ROUTER: RouteItem[] = [
   },
   {
     path: '/repo/:owner/:repoName',
-    element: <RepoDetails />,
+    element: <RepoDetailsPageWithProvider />,
   },
 ]
 

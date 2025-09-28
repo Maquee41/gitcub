@@ -2,7 +2,7 @@ import { getOrgRepos, getUserRepos } from '@/api/repos'
 import { makeAutoObservable, runInAction } from 'mobx'
 import type { RepoDetailsType } from './repo'
 
-class RepoStore {
+export class RepoListStore {
   selected: string = ''
   query: string = ''
   page: number = 1
@@ -37,7 +37,7 @@ class RepoStore {
     this.errorMessage = null
 
     try {
-      let data: any[] = []
+      let data: RepoDetailsType[] = []
       if (t === 'organization') {
         data = await getOrgRepos(q, p)
       } else if (t === 'user') {
@@ -65,5 +65,3 @@ class RepoStore {
     this.fetchRepos(1, this.query, this.selected)
   }
 }
-
-export const repoStore = new RepoStore()

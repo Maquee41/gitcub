@@ -30,8 +30,8 @@ export const RepoListPage = observer(() => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
-    const type = searchParams.get('type') ?? ''
-    const query = searchParams.get('query') ?? ''
+    const type = searchParams.get('type') ?? 'organization'
+    const query = searchParams.get('query') ?? 'jetbrains'
     const page = Number(searchParams.get('page')) || 1
 
     repoStore.setSelected(type)

@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from 'mobx'
+import { action, computed, makeAutoObservable, runInAction } from 'mobx'
 import {
   getRepoDetails,
   getRepoContributors,
@@ -14,21 +14,54 @@ function getLanguageColor(name: string) {
 }
 
 export class RepoDetailsStore {
-  repo: RepoDetailsType | null = null
-
-  contributors: unknown[] = []
-  languages: LanguageType[] = []
-  readmeHtml: string = ''
-  meta: MetaState = MetaState.Initial
-  error: string | null = null
+  private _repo: RepoDetailsType | null = null
+  private _contributors: unknown[] = []
+  private _languages: LanguageType[] = []
+  private _readmeHtml: string = ''
+  private _meta: MetaState = MetaState.Initial
+  private _error: string | null = null
 
   constructor() {
-    makeAutoObservable(this)
+    makeAutoObservable(this, {
+      repo: computed,
+      contributors: computed,
+      languages: computed,
+      readmeHtml: computed,
+      meta: computed,
+      error: computed,
+
+      fetchRepo: action.bound,
+      reset: action.bound,
+    })
+  }
+
+  get repo(): RepoDetailsType | null {
+    return this._repo
+  }
+
+  get contributors(): unknown[] {
+    return this._contributors
+  }
+
+  get languages(): LanguageType[] {
+    return this._languages
+  }
+
+  get readmeHtml(): string {
+    return this._readmeHtml
+  }
+
+  get meta(): MetaState {
+    return this._meta
+  }
+
+  get error(): string | null {
+    return this._error
   }
 
   fetchRepo = async (owner: string, repoName: string) => {
-    this.meta = MetaState.Loading
-    this.error = null
+    this._meta = MetaState.Loading
+    this._error = null
 
     try {
       const repoData = await getRepoDetails(owner, repoName)
@@ -50,27 +83,27 @@ export class RepoDetailsStore {
       const readmeData = await getRepoReadme(owner, repoName)
 
       runInAction(() => {
-        this.repo = repoData
-        this.contributors = contributorsData
-        this.languages = formattedLanguages
-        this.readmeHtml = readmeData
-        this.meta = MetaState.Success
+        this._repo = repoData
+        this._contributors = contributorsData
+        this._languages = formattedLanguages
+        this._readmeHtml = readmeData
+        this._meta = MetaState.Success
       })
     } catch (err) {
       console.error(err)
       runInAction(() => {
-        this.error = 'Failed to load repository details'
-        this.meta = MetaState.Error
+        this._error = 'Failed to load repository details'
+        this._meta = MetaState.Error
       })
     }
   }
 
   reset = () => {
-    this.repo = null
-    this.contributors = []
-    this.languages = []
-    this.readmeHtml = ''
-    this.error = null
-    this.meta = MetaState.Initial
+    this._repo = null
+    this._contributors = []
+    this._languages = []
+    this._readmeHtml = ''
+    this._error = null
+    this._meta = MetaState.Initial
   }
 }

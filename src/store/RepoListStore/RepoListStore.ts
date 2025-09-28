@@ -1,41 +1,77 @@
 import { getOrgRepos, getUserRepos } from '@/api/repos'
-import { makeAutoObservable, runInAction } from 'mobx'
+import { action, computed, makeAutoObservable, runInAction } from 'mobx'
 import type { RepoDetailsType } from './repo'
 import { MetaState } from '@/types/metaState'
 
 export class RepoListStore {
-  selected: string = ''
-  query: string = ''
-  page: number = 1
-  repos: RepoDetailsType[] = []
-  meta: MetaState = MetaState.Initial
-  errorMessage: string | null = null
+  private _selected: string = ''
+  private _query: string = ''
+  private _page: number = 1
+  private _repos: RepoDetailsType[] = []
+  private _meta: MetaState = MetaState.Initial
+  private _errorMessage: string | null = null
 
   constructor() {
-    makeAutoObservable(this)
+    makeAutoObservable(this, {
+      selected: computed,
+      query: computed,
+      page: computed,
+      repos: computed,
+      meta: computed,
+      errorMessage: computed,
+
+      setSelected: action.bound,
+      setQuery: action.bound,
+      setPage: action.bound,
+      handleSearch: action.bound,
+    })
   }
 
-  setSelected = (value: string) => {
-    this.selected = value
+  get selected(): string {
+    return this._selected
   }
 
-  setQuery = (value: string) => {
-    this.query = value
+  get query(): string {
+    return this._query
   }
 
-  setPage = (value: number) => {
-    this.page = value
+  get page(): number {
+    return this._page
+  }
+
+  get repos(): RepoDetailsType[] {
+    return this._repos
+  }
+
+  get meta(): MetaState {
+    return this._meta
+  }
+
+  get errorMessage(): string | null {
+    return this._errorMessage
+  }
+
+  public setSelected = (value: string) => {
+    this._selected = value
+  }
+
+  public setQuery = (value: string) => {
+    this._query = value
+  }
+
+  public setPage = (value: number) => {
+    this._page = value
   }
 
   fetchRepos = async (
-    p: number = this.page,
-    q: string = this.query,
-    t: string = this.selected
+    p: number = this._page,
+    q: string = this._query,
+    t: string = this._selected
   ) => {
     if (!q || !t) return
 
-    this.meta = MetaState.Loading
-    this.errorMessage = null
+    this._meta = MetaState.Loading
+    this._errorMessage = null
 
     try {
       let data: RepoDetailsType[] = []
@@ -46,21 +82,21 @@ export class RepoListStore {
       }
 
       runInAction(() => {
-        this.repos = data
-        this.meta = MetaState.Success
+        this._repos = data
+        this._meta = MetaState.Success
       })
     } catch (err) {
       console.error(err)
       runInAction(() => {
-        this.errorMessage = 'Failed to fetch repositories'
-        this.meta = MetaState.Error
+        this._errorMessage = 'Failed to fetch repositories'
+        this._meta = MetaState.Error
       })
     }
   }
 
   handleSearch = () => {
-    if (!this.query || !this.selected) return
+    if (!this._query || !this._selected) return
     this.setPage(1)
-    this.fetchRepos(1, this.query, this.selected)
+    this.fetchRepos(1, this._query, this._selected)
   }
 }

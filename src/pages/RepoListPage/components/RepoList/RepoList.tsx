@@ -1,5 +1,5 @@
 import React from 'react'
-import type { RepoDetailsType } from '@/types/repo'
+import type { RepoDetailsType } from '@/store/RepoListStore/repo'
 import RepoCard from '../RepoCard/RepoCard'
 import styles from './RepoList.module.scss'
 import Text from '@/components/Text'

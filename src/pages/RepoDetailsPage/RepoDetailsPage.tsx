@@ -16,19 +16,15 @@ export const RepoDetailsPage = observer(() => {
   const { owner, repoName } = useParams<{ owner: string; repoName: string }>()
   const navigate = useNavigate()
 
-  const { fetchRepo, reset } = useRepoDetailsStore()
+  const store = useRepoDetailsStore()
+  const { fetchRepo, repo, contributors, languages, readmeHtml, meta, error } =
+    store
 
   useEffect(() => {
     if (owner && repoName) {
       fetchRepo(owner, repoName)
     }
-    return () => {
-      reset()
-    }
   }, [owner, repoName])
-
-  const { repo, contributors, languages, readmeHtml, meta, error } =
-    useRepoDetailsStore()
 
   return (
     <>

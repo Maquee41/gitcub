@@ -40,7 +40,6 @@ export class RepoDetailsStore {
       error: computed,
 
       fetchRepo: action.bound,
-      reset: action.bound,
     })
   }
 
@@ -69,6 +68,8 @@ export class RepoDetailsStore {
   }
 
   fetchRepo = async (owner: string, repoName: string) => {
+    this._reset()
+
     this._meta = MetaState.Loading
     this._error = null
 
@@ -103,7 +104,7 @@ export class RepoDetailsStore {
     }
   }
 
-  reset = () => {
+  private _reset = () => {
     this._repo = null
     this._contributors = []
     this._languages = []

@@ -1,72 +1,29 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router'
+import { observer } from 'mobx-react-lite'
+
 import Header from '@/components/Header/Header'
 import Text from '@/components/Text'
 import Loader from '@/components/Loader/Loader'
-import {
-  getRepoDetails,
-  getRepoContributors,
-  getRepoLanguages,
-  getRepoReadme,
-} from '@/api/reposDetailed'
-import type { LanguageType, RepoDetailsType } from '@/types/repo'
 import RepoHeader from './components/RepoHeader'
+
 import UserLogo from '@/assets/profile.jpg'
-import styles from './RepoDetails.module.scss'
-import { languageColors } from './values'
+import styles from './RepoDetailsPage.module.scss'
+import { useRepoDetailsStore } from '@/store/RepoDetailsStore'
+import { MetaState } from '@/types/metaState'
 
-function getLanguageColor(name: string) {
-  return languageColors[name] || '#ededed'
-}
-
-export function RepoDetails() {
+export const RepoDetailsPage = observer(() => {
   const { owner, repoName } = useParams<{ owner: string; repoName: string }>()
   const navigate = useNavigate()
-  const [repo, setRepo] = useState<RepoDetailsType | null>(null)
-  const [contributors, setContributors] = useState([])
-  const [languages, setLanguages] = useState<LanguageType[]>([])
-  const [readmeHtml, setReadmeHtml] = useState<string>('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+
+  const store = useRepoDetailsStore()
+  const { fetchRepo, repo, contributors, languages, readmeHtml, meta, error } =
+    store
 
   useEffect(() => {
-    if (!owner || !repoName) return
-
-    const fetchRepo = async () => {
-      setLoading(true)
-      setError(null)
-      try {
-        const repoData = await getRepoDetails(owner, repoName)
-        setRepo(repoData)
-
-        const contributorsData = await getRepoContributors(owner, repoName)
-        setContributors(contributorsData)
-
-        const languagesData = await getRepoLanguages(owner, repoName)
-        const total = Object.values(
-          languagesData as Record<string, number>
-        ).reduce((acc, val) => acc + val, 0)
-
-        const formattedLanguages: LanguageType[] = Object.entries(
-          languagesData
-        ).map(([name, size]) => ({
-          name,
-          percentage: Math.round(((size as number) / total) * 100),
-          color: getLanguageColor(name),
-        }))
-
-        setLanguages(formattedLanguages)
-
-        const readmeData = await getRepoReadme(owner, repoName)
-        setReadmeHtml(readmeData)
-      } catch (err) {
-        console.error(err)
-      } finally {
-        setLoading(false)
-      }
+    if (owner && repoName) {
+      fetchRepo(owner, repoName)
     }
-
-    fetchRepo()
   }, [owner, repoName])
 
   return (
@@ -74,7 +31,7 @@ export function RepoDetails() {
       <Header logoUrl={UserLogo} />
       <main className={styles.repolist}>
         <div className={styles.repolist__inner}>
-          {loading ? (
+          {meta === MetaState.Loading ? (
             <div className={styles.repolist__loader}>
               <Loader />
             </div>
@@ -85,7 +42,7 @@ export function RepoDetails() {
           ) : (
             <>
               <RepoHeader
-                avatarUrl={repo.owner.avatar_url}
+                avatarUrl={repo.owner.avatarUrl}
                 ownerName={repo.owner.login}
                 repoName={repo.name}
                 onBack={() => navigate(-1)}
@@ -102,9 +59,9 @@ export function RepoDetails() {
               )}
 
               <div className={styles.repolist__stats}>
-                <Text>⭐ Stars: {repo.stargazers_count}</Text>
-                <Text>👀 Watching: {repo.watchers_count}</Text>
-                <Text>🍴 Forks: {repo.forks_count}</Text>
+                <Text>⭐ Stars: {repo.stargazersCount}</Text>
+                <Text>👀 Watching: {repo.watchersCount}</Text>
+                <Text>🍴 Forks: {repo.forksCount}</Text>
                 <Text>👥 Contributors: {contributors.length}</Text>
               </div>
 
@@ -148,4 +105,4 @@ export function RepoDetails() {
       </main>
     </>
   )
-}
+})

@@ -1,35 +1,47 @@
-import { makeAutoObservable } from 'mobx'
+import { action, computed, makeAutoObservable } from 'mobx'
 import type { FavouriteRepo } from './FavouriteRepo'
 
 class FavouriteStore {
-  favourites: FavouriteRepo[] = []
+  private _favourites: FavouriteRepo[] = []
 
   constructor() {
-    makeAutoObservable(this)
+    makeAutoObservable(this, {
+      favourites: computed,
+      favouriteCount: computed,
+
+      add: action.bound,
+      remove: action.bound,
+      toggle: action.bound,
+      clear: action.bound,
+    })
 
     const saved = localStorage.getItem('favourites')
     if (saved) {
       try {
-        this.favourites = JSON.parse(saved)
+        this._favourites = JSON.parse(saved)
       } catch {
-        this.favourites = []
+        this._favourites = []
       }
     }
   }
 
+  get favourites(): FavouriteRepo[] {
+    return this._favourites
+  }
+
   private saveToStorage() {
-    localStorage.setItem('favourites', JSON.stringify(this.favourites))
+    localStorage.setItem('favourites', JSON.stringify(this._favourites))
   }
 
   add(repo: FavouriteRepo) {
-    if (!this.favourites.find((r) => r.repoName === repo.repoName)) {
-      this.favourites.push(repo)
+    if (!this._favourites.find((r) => r.repoName === repo.repoName)) {
+      this._favourites.push(repo)
       this.saveToStorage()
     }
   }
 
   remove(repoName: string) {
-    this.favourites = this.favourites.filter((r) => r.repoName !== repoName)
+    this._favourites = this._favourites.filter((r) => r.repoName !== repoName)
     this.saveToStorage()
   }
 
@@ -42,16 +54,16 @@ class FavouriteStore {
   }
 
   clear() {
-    this.favourites = []
+    this._favourites = []
     this.saveToStorage()
   }
 
   get favouriteCount() {
-    return this.favourites.length
+    return this._favourites.length
   }
 
   isFavourite(repoName: string) {
-    return this.favourites.some((r) => r.repoName === repoName)
+    return this._favourites.some((r) => r.repoName === repoName)
   }
 }
 

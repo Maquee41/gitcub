@@ -11,14 +11,17 @@ import RepoList from './components/RepoList/RepoList'
 import Paginator from '@/components/Paginator'
 import Loader from '@/components/Loader/Loader'
 
-import type { Option } from '@/store/RepoStore/repo'
-import { repoStore } from '@/store/RepoStore/RepoStore'
+import { useRepoListStore } from '@/store/RepoListStore'
+import { MetaState } from '@/types/metaState'
+import type { Option } from '@/types/option'
 
 import UserLogo from '@/assets/profile.jpg'
 import SearchIcon from '@/assets/search.svg'
 import styles from './RepoListPage.module.scss'
 
 export const RepoListPage = observer(() => {
+  const repoStore = useRepoListStore()
+
   const options: Option[] = [
     { key: 'organization', value: 'Organization' },
     { key: 'user', value: 'User' },
@@ -27,8 +30,8 @@ export const RepoListPage = observer(() => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
-    const type = searchParams.get('type') ?? ''
-    const query = searchParams.get('query') ?? ''
+    const type = searchParams.get('type') ?? 'organization'
+    const query = searchParams.get('query') ?? 'jetbrains'
     const page = Number(searchParams.get('page')) || 1
 
     repoStore.setSelected(type)
@@ -94,7 +97,7 @@ export const RepoListPage = observer(() => {
             </div>
           </div>
 
-          {repoStore.loading ? (
+          {repoStore.meta === MetaState.Loading ? (
             <div className={styles['repo-list__loader']}>
               <Loader />
             </div>
@@ -109,12 +112,13 @@ export const RepoListPage = observer(() => {
             />
           )}
 
-          {!repoStore.loading && repoStore.repos.length > 0 && (
-            <Paginator
-              currentPage={repoStore.page}
-              onPageChange={repoStore.setPage}
-            />
-          )}
+          {repoStore.meta !== MetaState.Loading &&
+            repoStore.repos.length > 0 && (
+              <Paginator
+                currentPage={repoStore.page}
+                onPageChange={repoStore.setPage}
+              />
+            )}
         </div>
       </main>
     </div>

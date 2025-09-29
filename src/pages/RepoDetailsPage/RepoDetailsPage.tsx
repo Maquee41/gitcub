@@ -7,33 +7,31 @@ import Text from '@/components/Text'
 import Loader from '@/components/Loader/Loader'
 import RepoHeader from './components/RepoHeader'
 
-import { repoDetailsStore } from '@/store/RepoDetailsStore/RepoDetailsStore'
-
 import UserLogo from '@/assets/profile.jpg'
-import styles from './RepoDetails.module.scss'
+import styles from './RepoDetailsPage.module.scss'
+import { useRepoDetailsStore } from '@/store/RepoDetailsStore'
+import { MetaState } from '@/types/metaState'
 
-export const RepoDetails = observer(() => {
+export const RepoDetailsPage = observer(() => {
   const { owner, repoName } = useParams<{ owner: string; repoName: string }>()
   const navigate = useNavigate()
 
+  const store = useRepoDetailsStore()
+  const { fetchRepo, repo, contributors, languages, readmeHtml, meta, error } =
+    store
+
   useEffect(() => {
     if (owner && repoName) {
-      repoDetailsStore.fetchRepo(owner, repoName)
-    }
-    return () => {
-      repoDetailsStore.reset()
+      fetchRepo(owner, repoName)
     }
   }, [owner, repoName])
-
-  const { repo, contributors, languages, readmeHtml, loading, error } =
-    repoDetailsStore
 
   return (
     <>
       <Header logoUrl={UserLogo} />
       <main className={styles.repolist}>
         <div className={styles.repolist__inner}>
-          {loading ? (
+          {meta === MetaState.Loading ? (
             <div className={styles.repolist__loader}>
               <Loader />
             </div>
@@ -44,7 +42,7 @@ export const RepoDetails = observer(() => {
           ) : (
             <>
               <RepoHeader
-                avatarUrl={repo.owner.avatar_url}
+                avatarUrl={repo.owner.avatarUrl}
                 ownerName={repo.owner.login}
                 repoName={repo.name}
                 onBack={() => navigate(-1)}
@@ -61,9 +59,9 @@ export const RepoDetails = observer(() => {
               )}
 
               <div className={styles.repolist__stats}>
-                <Text>⭐ Stars: {repo.stargazers_count}</Text>
-                <Text>👀 Watching: {repo.watchers_count}</Text>
-                <Text>🍴 Forks: {repo.forks_count}</Text>
+                <Text>⭐ Stars: {repo.stargazersCount}</Text>
+                <Text>👀 Watching: {repo.watchersCount}</Text>
+                <Text>🍴 Forks: {repo.forksCount}</Text>
                 <Text>👥 Contributors: {contributors.length}</Text>
               </div>
 

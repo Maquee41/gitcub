@@ -1,8 +1,8 @@
 import React from 'react'
-import RepoCard from '../RepoCard/RepoCard'
-import styles from './RepoList.module.scss'
+import RepoItem from '../RepoItem'
 import Text from '@/components/Text'
 import type { RepoItemModel } from '@/store/models/GitHub'
+import styles from './RepoList.module.scss'
 
 interface RepoListProps {
   defaultText: string
@@ -19,20 +19,22 @@ const RepoList = ({ defaultText, repos }: RepoListProps) => {
   }
 
   return (
-    <div className={styles['repo-list']}>
+    <ul className={styles['repo-list']}>
       {repos.map((rep) => (
-        <RepoCard
+        <RepoItem
           key={rep.id}
           owner={rep.owner.login}
           title={rep.name}
           description={
             rep.description ? rep.description : 'No description provided'
           }
+          archived={rep.archived}
           stars={rep.stargazersCount}
+          forksCount={rep.forksCount}
           updatedAt={rep.updatedAt}
         />
       ))}
-    </div>
+    </ul>
   )
 }
 

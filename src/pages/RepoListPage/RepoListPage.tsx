@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSearchParams } from 'react-router'
+import { observer } from 'mobx-react-lite'
+
 import Header from '@/components/Header/Header'
 import Text from '@/components/Text'
 import Input from '@/components/Input'
@@ -8,13 +10,18 @@ import Dropdown from '@/components/Dropdown/Dropdown'
 import RepoList from './components/RepoList/RepoList'
 import Paginator from '@/components/Paginator'
 import Loader from '@/components/Loader/Loader'
-import { getOrgRepos, getUserRepos } from '@/api/repos'
-import type { Option } from '@/types/repo'
+
+import { useRepoListStore } from '@/store/RepoListStore'
+import { MetaState } from '@/types/metaState'
+import type { Option } from '@/types/option'
+
 import UserLogo from '@/assets/profile.jpg'
 import SearchIcon from '@/assets/search.svg'
 import styles from './RepoListPage.module.scss'
 
-export function RepoListPage() {
+export const RepoListPage = observer(() => {
+  const repoStore = useRepoListStore()
+
   const options: Option[] = [
     { key: 'organization', value: 'Organization' },
     { key: 'user', value: 'User' },
@@ -22,52 +29,42 @@ export function RepoListPage() {
 
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const [selected, setSelected] = useState(searchParams.get('type') || '')
-  const [query, setQuery] = useState(searchParams.get('query') || '')
-  const [page, setPage] = useState(Number(searchParams.get('page')) || 1)
-  const [repos, setRepos] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [errorMessage, setError] = useState<string | null>(null)
-
-  const fetchRepos = async (
-    p: number = page,
-    q: string = query,
-    t: string = selected
-  ) => {
-    if (!q || !t) return
-
-    setLoading(true)
-    setError(null)
-
-    try {
-      let data = []
-      if (t === 'organization') data = await getOrgRepos(q, p)
-      else if (t === 'user') data = await getUserRepos(q, p)
-      setRepos(data)
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   useEffect(() => {
-    if (query && selected) {
-      fetchRepos(page)
+    const type = searchParams.get('type') ?? 'organization'
+    const query = searchParams.get('query') ?? 'jetbrains'
+    const page = Number(searchParams.get('page')) || 1
+
+    repoStore.setSelected(type)
+    repoStore.setQuery(query)
+    repoStore.setPage(page)
+
+    if (type && query) {
+      repoStore.fetchRepos(page, query, type)
     }
   }, [])
 
   useEffect(() => {
-    if (!query || !selected) return
-    fetchRepos(page)
-    setSearchParams({ type: selected, query, page: String(page) })
-  }, [page])
+    if (!repoStore.query || !repoStore.selected) return
 
-  const handleSearch = () => {
-    if (!query || !selected) return
-    setPage(1)
-    fetchRepos(1, query, selected)
-    setSearchParams({ type: selected, query, page: '1' })
+    repoStore.fetchRepos(repoStore.page)
+    setSearchParams({
+      type: repoStore.selected,
+      query: repoStore.query,
+      page: String(repoStore.page),
+    })
+  }, [repoStore.page, setSearchParams])
+
+  const onSearch = () => {
+    if (!repoStore.query || !repoStore.selected) return
+
+    repoStore.setPage(1)
+    repoStore.fetchRepos(1, repoStore.query, repoStore.selected)
+
+    setSearchParams({
+      type: repoStore.selected,
+      query: repoStore.query,
+      page: '1',
+    })
   }
 
   return (
@@ -78,47 +75,52 @@ export function RepoListPage() {
           <Text tag="h2" className={styles['repo-list__title']}>
             List of organization repositories
           </Text>
+
           <div className={styles['repo-list__search-section']}>
             <Dropdown
               options={options}
-              value={selected}
+              value={repoStore.selected}
               placeholder="Type"
-              onChange={setSelected}
+              onChange={repoStore.setSelected}
               className={styles['repo-list__search-dropdown']}
             />
             <div className={styles['repo-list__search']}>
               <Input
-                value={query}
+                value={repoStore.query}
                 placeholder="Enter organization name"
-                onChange={setQuery}
+                onChange={repoStore.setQuery}
                 containerClassName={styles['repo-list__search-input']}
               />
-              <Button onClick={handleSearch}>
+              <Button onClick={onSearch}>
                 <img src={SearchIcon} alt="search icon" />
               </Button>
             </div>
           </div>
 
-          {loading ? (
+          {repoStore.meta === MetaState.Loading ? (
             <div className={styles['repo-list__loader']}>
               <Loader />
             </div>
           ) : (
             <RepoList
               defaultText={
-                errorMessage
-                  ? errorMessage
+                repoStore.errorMessage
+                  ? repoStore.errorMessage
                   : 'Search for a repository or organization to get started'
               }
-              repos={repos}
+              repos={repoStore.repos}
             />
           )}
 
-          {!loading && repos.length > 0 && (
-            <Paginator currentPage={page} onPageChange={setPage} />
-          )}
+          {repoStore.meta !== MetaState.Loading &&
+            repoStore.repos.length > 0 && (
+              <Paginator
+                currentPage={repoStore.page}
+                onPageChange={repoStore.setPage}
+              />
+            )}
         </div>
       </main>
     </div>
   )
-}
+})

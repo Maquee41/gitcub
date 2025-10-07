@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import clsx from 'clsx'
 import ArrowDownIcon from '../icons/ArrowDownIcon'
-import type { Option } from '@/types/repo'
+import type { Option } from '@/types/option'
 import './Dropdown.scss'
 
 interface DropdownProps {
